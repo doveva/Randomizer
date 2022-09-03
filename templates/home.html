@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load socialaccount %}
+
+{% block content %}
+
+<div class="container" style="text-align: center; padding-top: 10%;">
+    <h1>Randomizer on Django</h1>
+    <hr>
+    {% if user.is_authenticated %}
+        <h3>Welcome {{ user.username }} !!!</h3>
+        <div style="padding-top: 10pt; padding-bottom: 10pt">
+            <h5 id="rand_value" onload=get_data()>Awaiting fetch</h5>
+        </div>
+
+        <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
+    {% else %}
+        <a href="{% provider_login_url 'github' %}" class="btn btn-secondary">
+          <i class="fa fa-github fa-fw"></i>
+          <span>Login with GitHub</span>
+        </a>
+    {% endif %}
+</div>
+    <script>
+
+    function get_data(){
+        fetch("https://randomizer.gpexport.ru/api/").then(response => response.json()).then((data) => {document.getElementById("rand_value").innerHTML = "Your random value is: " + data.value;})
+    }
+
+    get_data()
+    setInterval(get_data, 5000)
+
+    </script>
+
+{% endblock content %}
