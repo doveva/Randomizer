@@ -20,11 +20,11 @@
     {% endif %}
 </div>
     <script>
-
+    /* Functions that fetches data from server */
     function get_data(){
         fetch("https://randomizer.gpexport.ru/api/").then(response => response.json()).then((data) => {document.getElementById("rand_value").innerHTML = "Your random value is: " + data.value;})
     }
-
+    /* Refreshes data */
     get_data()
     setInterval(get_data, 5000)
 
