@@ -22,11 +22,16 @@
     <script>
     /* Functions that fetches data from server */
     function get_data(){
-        fetch("https://randomizer.gpexport.ru/api/").then(response => response.json()).then((data) => {document.getElementById("rand_value").innerHTML = "Your random value is: " + data.value;})
+        fetch("https://randomizer.gpexport.ru/api/").then(response => response.json()).then((data) => {document.getElementById("rand_value").innerHTML = "Your random value is: " + data.value; sleep(data.delay)})
     }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     /* Refreshes data */
-    get_data()
-    setInterval(get_data, 5000)
+    setInterval(get_data, 10)
+
 
     </script>
 
